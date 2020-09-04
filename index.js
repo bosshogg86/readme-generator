@@ -1,8 +1,15 @@
+const inquirer = require("inquirer");
+const fs = require("fs");
+const util = require("util");
+// const api = require("./utils/api.js");
+const generateMarkdown = require("./utils/generateMarkdown.js");
+const writeFileAsync = util.promisify(fs.writeFile);
+
 const questions = [
   {
     type: "input",
     name: "title",
-    message: "What is the name of your project?",
+    message: "What is the title of your project?",
   },
   {
     type: "input",
@@ -11,28 +18,44 @@ const questions = [
   },
   {
     type: "input",
-    name: "toc",
-    message: "What is your favorite hobby?",
-  },
-  {
-    type: "input",
-    name: "food",
-    message: "What is your favorite food?",
-  },
-  {
-    type: "input",
     name: "github",
     message: "Enter your GitHub Username",
   },
   {
     type: "input",
-    name: "linkedin",
-    message: "Enter your LinkedIn URL.",
+    name: "email",
+    message: "What is your email address?",
   },
 ];
 
-function writeToFile(fileName, data) {}
+function promptUser() {
+  return inquirer.prompt(questions);
+}
 
-function init() {}
+function generateReadMe(answers) {
+  return `
+      ${answers.title}
+      ${answers.description}
+      ${answers.github}
+      ${answers.email}<
+     `;
+}
 
-init();
+promptUser()
+  .then(function (answers) {
+    const readMe = generateReadMe(answers);
+
+    return writeFileAsync("README.md", readMe);
+  })
+  .then(function () {
+    console.log("Successfully wrote to README.md");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+// function writeToFile(fileName, data) {}
+
+// function init() {}
+
+// init();
