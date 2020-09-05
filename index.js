@@ -14,7 +14,7 @@ const questions = [
   {
     type: "input",
     name: "description",
-    message: "Describe your project",
+    message: "Describe your project and its usage",
   },
   {
     type: "input",
@@ -34,11 +34,43 @@ function promptUser() {
 
 function generateReadMe(answers) {
   return `
-      ${answers.title}
-      ${answers.description}
+
+      # ${answers.title}
+
+      Simple project overview.
+
+      ## Description
+
+      ${answers.description} 
+
+      ## Table of Contents
+
+      ## Installation
+
+      * How/where to download your program
+      * Any modifications needed to be made to files/folders
+
+      ## Usage
+
+      * How to run the program
+      * Step-by-step bullets      
+
+      ## License
+
+      This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+
+      ## Contributing
+
       ${answers.github}
       ${answers.email}
-     `;
+      
+      ## Tests
+
+      Any advise for common problems or issues.
+
+      ## Questions
+
+      Questions`;
 }
 
 async function init() {
