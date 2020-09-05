@@ -1,10 +1,11 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
+const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 // const generateMarkdown = require("./scripts/generateMarkdown.js");
 // const api = require("./utils/api.js");
-
+const username = "bosshogg86";
 const questions = [
   {
     type: "input",
@@ -52,34 +53,40 @@ function promptUser() {
   return inquirer.prompt(questions);
 }
 
-function generateReadMe(answers) {
+function generateReadMe(response) {
   return `
 
-      # ${answers.title}
+      # ${response.title}
 
       ## Description
 
-      ${answers.description} 
+      ${response.description} 
 
       ## Table of Contents
-
+      - Installation
+      - Usage
+      - License
+      - Contributing
+      - Tests
+      - Questions
+        
       ## Installation
 
-      ${answers.installation}
+      ${response.installation}
 
       ## Usage
 
-      ${answers.usage}      
+      ${response.usage}      
 
       ## License
 
-      This project is licensed under the ${answers.license} License
+      This project is licensed under the ${response.license} License
 
       ## Contributing
 
-      *${answers.name}
-      *${answers.email}
-      *${answers.github}
+      *${response.name}
+      *${response.email}
+      *${response.github}
 
       ## Tests
 
@@ -90,11 +97,24 @@ function generateReadMe(answers) {
       Questions?`;
 }
 
+function getUser(username) {
+  let res = axios.get(`https://api.github.com/users/${username}`);
+  console.log(res);
+}
+
 async function init() {
   try {
-    const answers = await promptUser();
+    const response = await promptUser();
 
-    const readMe = generateReadMe(answers);
+    console.log(response);
+
+    const { data } = await axios.get(
+      `https://api.github.com/users/${response.github}`
+    );
+
+    console.log(data);
+
+    const readMe = generateReadMe(response);
 
     await writeFileAsync("README.md", readMe);
 
@@ -106,4 +126,4 @@ async function init() {
 
 init();
 
-// module.exports = answers;
+// module.exports = { answers };

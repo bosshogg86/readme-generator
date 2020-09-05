@@ -1,16 +1,15 @@
+const response = require("../index.js");
 const axios = require("axios");
+const username = "bosshogg86";
+
+console.log(response);
 
 // const gitHubUrl = https://api.github.com/users/${}
 const api = {
-  getUser(username) {
+  function getUser(username) {
+    let res = axios.get(`https://api.github.com/users/${username}`)
+    console.log(res);
   }
 };
 
-
-axios
-  .get(`https://api.github.com/users/${}`)
-  .then(function(res) {
-    console.log(res.data);
-  });
-
-module.exports = api;
+module.exports = api.getUser();
