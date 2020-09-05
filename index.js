@@ -8,13 +8,33 @@ const writeFileAsync = util.promisify(fs.writeFile);
 const questions = [
   {
     type: "input",
+    name: "name",
+    message: "What is your first and last name?",
+  },
+  {
+    type: "input",
     name: "title",
     message: "What is the title of your project?",
   },
   {
     type: "input",
     name: "description",
-    message: "Describe your project and its usage",
+    message: "Describe your project and it's usage.",
+  },
+  {
+    type: "input",
+    name: "installation",
+    message: "What is required for installation?",
+  },
+  {
+    type: "input",
+    name: "usage",
+    message: "How is the program run?",
+  },
+  {
+    type: "input",
+    name: "license",
+    message: "What is the name of the license?",
   },
   {
     type: "input",
@@ -37,8 +57,6 @@ function generateReadMe(answers) {
 
       # ${answers.title}
 
-      Simple project overview.
-
       ## Description
 
       ${answers.description} 
@@ -47,30 +65,29 @@ function generateReadMe(answers) {
 
       ## Installation
 
-      * How/where to download your program
-      * Any modifications needed to be made to files/folders
+      ${answers.installation}
 
       ## Usage
 
-      * How to run the program
-      * Step-by-step bullets      
+      ${answers.usage}      
 
       ## License
 
-      This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+      This project is licensed under the ${answers.license} License
 
       ## Contributing
 
-      ${answers.github}
-      ${answers.email}
-      
+      *${answers.name}
+      *${answers.email}
+      *${answers.github}
+
       ## Tests
 
-      Any advise for common problems or issues.
+      Testing?
 
       ## Questions
 
-      Questions`;
+      Questions?`;
 }
 
 async function init() {
