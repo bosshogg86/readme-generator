@@ -4,13 +4,18 @@ const util = require("util");
 const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 // const generateMarkdown = require("./scripts/generateMarkdown.js");
-// const api = require("./utils/api.js");
-const username = "bosshogg86";
+// const { getUser } = require("./scripts/api.js");
+
 const questions = [
+  // {
+  //   type: "input",
+  //   name: "name",
+  //   message: "What is your first and last name?",
+  // },
   {
     type: "input",
-    name: "name",
-    message: "What is your first and last name?",
+    name: "github",
+    message: "Enter your GitHub Username",
   },
   {
     type: "input",
@@ -37,25 +42,20 @@ const questions = [
     name: "license",
     message: "What is the name of the license?",
   },
-  {
-    type: "input",
-    name: "github",
-    message: "Enter your GitHub Username",
-  },
-  {
-    type: "input",
-    name: "email",
-    message: "What is your email address?",
-  },
+  // {
+  //   type: "input",
+  //   name: "email",
+  //   message: "What is your email address?",
+  // },
 ];
 
 function promptUser() {
   return inquirer.prompt(questions);
 }
 
-function generateReadMe(response) {
+function generateReadMe(response, { data }) {
   return `
-
+      // ![Profile Picture](${data.avatar_url})
       # ${response.title}
 
       ## Description
@@ -84,8 +84,8 @@ function generateReadMe(response) {
 
       ## Contributing
 
-      *${response.name}
-      *${response.email}
+      *${data.name}
+      *${data.email}
       *${response.github}
 
       ## Tests
@@ -95,11 +95,6 @@ function generateReadMe(response) {
       ## Questions
 
       Questions?`;
-}
-
-function getUser(username) {
-  let res = axios.get(`https://api.github.com/users/${username}`);
-  console.log(res);
 }
 
 async function init() {
@@ -114,7 +109,7 @@ async function init() {
 
     console.log(data);
 
-    const readMe = generateReadMe(response);
+    const readMe = generateReadMe(response, { data });
 
     await writeFileAsync("README.md", readMe);
 
@@ -125,5 +120,4 @@ async function init() {
 }
 
 init();
-
-// module.exports = { answers };
+// module.exports = { response };

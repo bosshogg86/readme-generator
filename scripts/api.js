@@ -1,15 +1,18 @@
-const response = require("../index.js");
+const { response } = require("../index.js");
 const axios = require("axios");
-const username = "bosshogg86";
+// const username = response.github;
+// const username = "bosshogg86";
 
 console.log(response);
 
 // const gitHubUrl = https://api.github.com/users/${}
-const api = {
-  function getUser(username) {
-    let res = axios.get(`https://api.github.com/users/${username}`)
-    console.log(res);
-  }
-};
+// const api = {};
 
-module.exports = api.getUser();
+async function getUser(response) {
+  const username = await response.github;
+  const { data } = await axios.get(
+    `https://api.github.com/users/${response.github}`
+  );
+}
+
+module.exports = getUser();
