@@ -1,18 +1,22 @@
 const { response } = require("../index.js");
 const axios = require("axios");
-// const username = response.github;
-// const username = "bosshogg86";
+let username;
 
-console.log(response);
+// console.log(response);
 
 // const gitHubUrl = https://api.github.com/users/${}
 // const api = {};
 
-async function getUser(response) {
-  const username = await response.github;
-  const { data } = await axios.get(
-    `https://api.github.com/users/${response.github}`
-  );
-}
+// async function getUser() {
+//   const { data } = await axios.get(`https://api.github.com/users/${username}`);
+// }
 
-module.exports = getUser();
+const getUser = async (username) => {
+  const { data } = await axios.get(`https://api.github.com/users/${username}`);
+  console.log(data);
+  return data;
+};
+
+module.exports = { getUser };
+
+// api key = 502ffcebbdc4a9b4da415f92b205794f5cbd8511

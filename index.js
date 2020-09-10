@@ -4,8 +4,7 @@ const util = require("util");
 const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 // const generateMarkdown = require("./scripts/generateMarkdown.js");
-// const { getUser } = require("./scripts/api.js");
-// const avatar = https://avatars0.githubusercontent.com/u/67076205?v=4
+const { getUser } = require("./scripts/api.js");
 
 const questions = [
   {
@@ -59,7 +58,7 @@ function promptUser() {
   return inquirer.prompt(questions);
 }
 
-function generateReadMe(response, { data }) {
+function generateReadMe(response) {
   return `
       # ${response.title}
 
@@ -98,6 +97,7 @@ function generateReadMe(response, { data }) {
       ## About Me
 
       ${data.name}
+      ${data.email}
       ${response.email}
       ${response.github}
       ![Profile Picture](${data.avatar_url})
@@ -111,15 +111,19 @@ async function init() {
 
     console.log(response);
 
-    const { data } = await axios.get(
-      `https://api.github.com/users/${response.github}`
-    );
+    // const { data } = await axios.get(
+    //   `https://api.github.com/users/${response.github}`
+    // );
 
-    console.log(data);
+    // console.log(data);
 
-    const readMe = generateReadMe(response, { data });
+    username = response.github;
 
-    await writeFileAsync("README.md", readMe);
+    data = await getUser(username);
+
+    const readMe = generateReadMe(response);
+
+    writeFileAsync("README.md", readMe);
 
     console.log("Successfully wrote to README.md");
   } catch (err) {
