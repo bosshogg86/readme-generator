@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
 const axios = require("axios");
+require("dotenv").config();
 const writeFileAsync = util.promisify(fs.writeFile);
 // const generateMarkdown = require("./scripts/generateMarkdown.js");
 const { getUser } = require("./scripts/api.js");
@@ -92,7 +93,7 @@ function generateReadMe(response) {
 
       ## Tests
 
-      To run a test use the following command: ${response.tests}.
+      To run a test use the following command: ${response.tests}
 
       ## About Me
 
@@ -100,6 +101,7 @@ function generateReadMe(response) {
       ${data.email}
       ${response.email}
       ${response.github}
+      [![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter_username}.svg?style=social)](https://twitter.com/${data.twitter_username}) 
       ![Profile Picture](${data.avatar_url})
 
       `;
@@ -108,14 +110,6 @@ function generateReadMe(response) {
 async function init() {
   try {
     const response = await promptUser();
-
-    console.log(response);
-
-    // const { data } = await axios.get(
-    //   `https://api.github.com/users/${response.github}`
-    // );
-
-    // console.log(data);
 
     username = response.github;
 
@@ -132,4 +126,3 @@ async function init() {
 }
 
 init();
-// module.exports = { response };
