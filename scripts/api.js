@@ -18,5 +18,3 @@ const getUser = async (username) => {
 };
 
 module.exports = { getUser };
-
-// api key = 502ffcebbdc4a9b4da415f92b205794f5cbd8511
