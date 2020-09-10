@@ -37,11 +37,12 @@ To run a test use the following command: ${response.tests}
 
 ## About Me
 
-- Name: ${data.name}
-- Email: ${response.email}
+- ${data.name}
+- ${response.email}
 - [![GitHub followers](https://img.shields.io/github/followers/${data.login}.svg?style=social&label=Follow)](https://github.com/${data.login})
 - [![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter_username}.svg?style=social)](https://twitter.com/${data.twitter_username}) 
-- ![Profile Picture](${data.avatar_url})
+
+## ![Profile Picture](${data.avatar_url})
 `;
 };
 
