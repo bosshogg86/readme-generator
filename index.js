@@ -5,17 +5,18 @@ const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 // const generateMarkdown = require("./scripts/generateMarkdown.js");
 // const { getUser } = require("./scripts/api.js");
+// const avatar = https://avatars0.githubusercontent.com/u/67076205?v=4
 
 const questions = [
-  // {
-  //   type: "input",
-  //   name: "name",
-  //   message: "What is your first and last name?",
-  // },
   {
     type: "input",
     name: "github",
     message: "Enter your GitHub Username",
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What is your email address?",
   },
   {
     type: "input",
@@ -25,28 +26,33 @@ const questions = [
   {
     type: "input",
     name: "description",
-    message: "Describe your project and it's usage.",
+    message: "Please write a short description of your project.",
   },
   {
     type: "input",
     name: "installation",
-    message: "What is required for installation?",
+    message: "What command should be run to install dependencies?",
   },
   {
     type: "input",
     name: "usage",
-    message: "How is the program run?",
+    message: "What is required to use this project?",
   },
   {
     type: "input",
     name: "license",
-    message: "What is the name of the license?",
+    message: "What kind of license should your project have?",
   },
-  // {
-  //   type: "input",
-  //   name: "email",
-  //   message: "What is your email address?",
-  // },
+  {
+    type: "input",
+    name: "contributing",
+    message: "How can the user contribute to the project?",
+  },
+  {
+    type: "input",
+    name: "tests",
+    message: "What command should be run to run tests?",
+  },
 ];
 
 function promptUser() {
@@ -55,7 +61,6 @@ function promptUser() {
 
 function generateReadMe(response, { data }) {
   return `
-      // ![Profile Picture](${data.avatar_url})
       # ${response.title}
 
       ## Description
@@ -72,29 +77,32 @@ function generateReadMe(response, { data }) {
         
       ## Installation
 
-      ${response.installation}
+      To install dependencies, run the following command: ${response.installation}
 
       ## Usage
 
-      ${response.usage}      
+      ${response.usage} is required to use this project.      
 
       ## License
 
-      This project is licensed under the ${response.license} License
+      This project is licensed under the ${response.license}
 
       ## Contributing
 
-      *${data.name}
-      *${data.email}
-      *${response.github}
+      To contribute to this project ${response.contributing}
 
       ## Tests
 
-      Testing?
+      To run a test use the following command: ${response.tests}.
 
-      ## Questions
+      ## About Me
 
-      Questions?`;
+      ${data.name}
+      ${response.email}
+      ${response.github}
+      ![Profile Picture](${data.avatar_url})
+
+      `;
 }
 
 async function init() {
