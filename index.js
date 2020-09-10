@@ -2,11 +2,11 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
 const axios = require("axios");
-require("dotenv").config();
 const writeFileAsync = util.promisify(fs.writeFile);
-// const generateMarkdown = require("./scripts/generateMarkdown.js");
+const { generateReadMe } = require("./scripts/generateMarkdown.js");
 const { getUser } = require("./scripts/api.js");
 
+// Questions
 const questions = [
   {
     type: "input",
@@ -55,58 +55,12 @@ const questions = [
   },
 ];
 
+// Prompts the user
 function promptUser() {
   return inquirer.prompt(questions);
 }
 
-function generateReadMe(response) {
-  return `
-      # ${response.title}
-
-      ## Description
-
-      ${response.description} 
-
-      ## Table of Contents
-      - Installation
-      - Usage
-      - License
-      - Contributing
-      - Tests
-      - Questions
-        
-      ## Installation
-
-      To install dependencies, run the following command: ${response.installation}
-
-      ## Usage
-
-      ${response.usage} is required to use this project.      
-
-      ## License
-
-      This project is licensed under the ${response.license}
-
-      ## Contributing
-
-      To contribute to this project ${response.contributing}
-
-      ## Tests
-
-      To run a test use the following command: ${response.tests}
-
-      ## About Me
-
-      ${data.name}
-      ${data.email}
-      ${response.email}
-      ${response.github}
-      [![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter_username}.svg?style=social)](https://twitter.com/${data.twitter_username}) 
-      ![Profile Picture](${data.avatar_url})
-
-      `;
-}
-
+// Initialize
 async function init() {
   try {
     const response = await promptUser();
