@@ -1,49 +1,48 @@
 // Generates a README.md
 const generateReadMe = (response) => {
-  return `
-      # ${response.title}
+  return `# ${response.title}
 
-      ## Description
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [About Me](#about-me)
 
-      ${response.description} 
+## Description
 
-      ## Table of Contents
-      - Installation
-      - Usage
-      - License
-      - Contributing
-      - Tests
-      - Questions
-        
-      ## Installation
+${response.description} 
+  
+## Installation
 
-      To install dependencies, run the following command: ${response.installation}
+To install dependencies, run the following command: ${response.installation}
 
-      ## Usage
+## Usage
 
-      ${response.usage} is required to use this project.      
+${response.usage} is required to use this project.      
 
-      ## License
+## License
 
-      This project is licensed under the ${response.license}
+This project is licensed under the ${response.license}
 
-      ## Contributing
+## Contributing
 
-      To contribute to this project ${response.contributing}
+To contribute to this project ${response.contributing}
 
-      ## Tests
+## Tests
 
-      To run a test use the following command: ${response.tests}
+To run a test use the following command: ${response.tests}
 
-      ## About Me
+## About Me
 
-      ${data.name}
-      ${data.email}
-      ${response.email}
-      ${response.github}
-      [![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter_username}.svg?style=social)](https://twitter.com/${data.twitter_username}) 
-      ![Profile Picture](${data.avatar_url})
-      `;
+- Name: ${data.name}
+- Email: ${response.email}
+- [![GitHub followers](https://img.shields.io/github/followers/${data.login}.svg?style=social&label=Follow)](https://github.com/${data.login})
+- [![Twitter Follow](https://img.shields.io/twitter/follow/${data.twitter_username}.svg?style=social)](https://twitter.com/${data.twitter_username}) 
+- ![Profile Picture](${data.avatar_url})
+`;
 };
 
 module.exports = { generateReadMe };
