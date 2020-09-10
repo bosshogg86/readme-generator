@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
-const axios = require("axios");
 const writeFileAsync = util.promisify(fs.writeFile);
 const { generateReadMe } = require("./scripts/generateMarkdown.js");
 const { getUser } = require("./scripts/api.js");
@@ -56,12 +55,10 @@ const questions = [
 ];
 
 // Prompts the user
-function promptUser() {
-  return inquirer.prompt(questions);
-}
+const promptUser = () => inquirer.prompt(questions);
 
 // Initialize
-async function init() {
+const init = async () => {
   try {
     const response = await promptUser();
 
@@ -77,6 +74,6 @@ async function init() {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 init();
