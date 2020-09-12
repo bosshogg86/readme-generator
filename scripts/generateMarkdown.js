@@ -2,6 +2,8 @@
 const generateReadMe = (response) => {
   return `# ${response.title}
 
+[![${response.license} license](https://img.shields.io/badge/license-${response.license}-blue.svg)](https://github.com/bosshogg86/readme-generator)
+
 ## Table of Contents
 - [Description](#description)
 - [Installation](#installation)
