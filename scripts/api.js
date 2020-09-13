@@ -1,8 +1,12 @@
-const axios = require("axios");
+require("dotenv").config();
+const api_key = process.env.API_KEY;
+const { Octokit } = require("@octokit/rest");
+const octokit = new Octokit({
+  auth: `${api_key}`,
+});
 
-// Github API call
-const getUser = async (username) => {
-  const { data } = await axios.get(`https://api.github.com/users/${username}`);
+const getUser = async () => {
+  const { data } = await octokit.request(`/users/${username}`);
   console.log(data);
   return data;
 };

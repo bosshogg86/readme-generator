@@ -39,7 +39,7 @@ To run a test use the following command: ${response.tests}
 
 ## Questions
 
-If you have any questions you can contact me direct at <${response.email}>. Check out my other repositories at [${data.login}](https://github.com/${data.login}).
+If you have any questions you can contact me direct at <${data.email}>. Check out my other repositories at [${data.login}](https://github.com/${data.login}).
 
 [![GitHub followers](https://img.shields.io/github/followers/${data.login}.svg?style=social&label=Follow)](https://github.com/${data.login})
 
