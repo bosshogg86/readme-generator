@@ -11,7 +11,7 @@ const generateReadMe = (response) => {
 - [License](#license)
 - [Contributing](#contributing)
 - [Tests](#tests)
-- [About Me](#about-me)
+- [Questions](#questions)
 
 ## Description
 
